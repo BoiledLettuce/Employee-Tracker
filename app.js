@@ -1,55 +1,76 @@
 // get the client
 const mysql = require('mysql2');
 const cTable = require('console.table');
+const inquirer = require('inquirer');
+const { default: Choices } = require('inquirer/lib/objects/choices');
 
+const path = require('path');
+const express = require('express');
 
-
-
-
-
-console.table([
-    {
-      name: 'foo',
-      age: 10
-    }, {
-      name: 'bar',
-      age: 20
-    }
-  ]);
-  
-  // prints
-  name  age
-  ----  ---
-  foo   10
-  bar   20
-
-
-
-
-
-
-
-// create the connection to database
+//DATABASE CONNECTION
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'test'
+  host: "localhost",
+  user: "root",
+  port: 3306,
+  password: "password",
+  database: "employee_tracker_db"
+});
+//DATA BASE CONNECTION
+
+connection.connect(err => {
+  if (err) throw err;
+  console.log('WORKING');
+  menu();
 });
 
-// simple query
-connection.query(
-  'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
-  function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
-  }
-);
+function menu() {
+  inquirer.prompt({
+    name: "menu",
+    type: "list",
+    message: "Select from the menu...",
+    choices: [
+      "View employees",
+      "View roles",
+      "View departments",
+      "Add employee",
+      "Add role",
+      "Add department",
+      "Exit"
+    ]
+  }).then((choose) => {
+    switch (choose.action) {
+      case "View employees": viewEmployees(); break;
+      case "View roles": viewRoles(); break;
+      case "View departments": viewDepartments(); break;
+      case "Add employee": addEmployee(); break;
+      case "Exit": connection.destroy(); break;
+    }
+  });
+}
 
-// with placeholder
-connection.query(
-  'SELECT * FROM `table` WHERE `name` = ? AND `age` > ?',
-  ['Page', 45],
-  function(err, results) {
-    console.log(results);
-  }
-);
+function viewEmployees() {
+
+
+  
+}
+
+function viewRoles() {
+
+
+
+}
+
+function viewDepartments() {
+
+
+
+}
+
+function addEmployee() {
+
+
+
+}
+
+
+

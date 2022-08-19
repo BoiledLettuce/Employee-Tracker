@@ -1,7 +1,14 @@
 {
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "console.table": "^0.10.0",
-    "inquirer": "^9.1.0",
-    "mysql2": "^2.3.3"
+    "express": "^4.18.1",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.0.0",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7",
+    "require": "^2.4.20"
   }
 }
