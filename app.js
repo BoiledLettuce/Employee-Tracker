@@ -1,23 +1,24 @@
-// get the client
-const mysql = require('mysql2');
 
-const cTable = require('console.table');
+// const cTable = require('console.table');
+// const path = require('path');
+// const express = require('express');
+// const { start } = require('repl');
+const mysql2 = require('mysql2');
 const inquirer = require('inquirer');
-const { default: Choices } = require('inquirer/lib/objects/choices');
 
-const path = require('path');
-const express = require('express');
-const { start } = require('repl');
 
-//DATABASE CONNECTION
-const connection = mysql.createConnection({
+
+
+const connection = mysql2.createConnection({  //DATABASE CONNECTION
   host: "localhost",
   user: "root",
   port: 3306,
   password: "password",
   database: "employee_tracker_db"
 });
-//DATA BASE CONNECTION
+
+
+
 
 connection.connect(err => {
   if (err) throw err;
@@ -33,7 +34,7 @@ connection.connect(err => {
 // MENU FUNCTION
 function menu() {
   inquirer.prompt({
-    name: "menu",
+    name: "action",
     type: "list",
     message: "Select from the menu...",
     choices: [
@@ -43,7 +44,9 @@ function menu() {
       "Add employee",
       "Add role",
       "Add department",
-      "Exit"
+      "Delete department",
+      "Exit",
+      "Nuke"
     ]
   }).then((choose) => {
     switch (choose.action) {
@@ -52,7 +55,9 @@ function menu() {
       case "View departments": viewDepartments(); break;
       case "Add employee": addEmployee(); break;
       case "Add department": addDepartment(); break;
-      case "Exit": connection.destroy(); break;
+      case "Delete department": delDepartment(); break;
+      case "Exit": connection.end(); break;
+      case "Nuke": connection.destroy(); break;
     }
   });
 }
@@ -78,7 +83,7 @@ function viewRoles() {
 
 // DEPARTMENT
 function viewDepartments() {
-  connection.query("SELECT * FROM deparment", (err, data) => {
+  connection.query("SELECT * FROM department", (err, data) => {
     if (err) throw err;
     console.table(data);
     menu();
@@ -93,7 +98,29 @@ function addDepartment() {
       name: "department",
       type: "input",
     }
-  ]).then
+  ]).then(answer => {
+    connection.query(
+      "INSERT INTO department SET ?",
+      {
+        name: answer.department
+      },
+      (err) => {
+        if (err) throw err;
+        // console.table(data);
+        menu();
+      }
+    );
+  });
+}
+
+
+// delete departments test
+function delDepartment() {
+  connection.query("DELETE FROM department", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    menu();
+  });
 }
 // DEPARTMENT
 
