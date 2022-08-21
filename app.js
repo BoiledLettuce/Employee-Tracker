@@ -78,6 +78,53 @@ function addEmployee() {
 
 
 
+
+
+
+  inquirer.prompt([
+    {
+      name: "name_f",
+      type: "input",
+      message: "First name?",
+      validate: (value) => {
+        if (value.length > 0) {
+          return true;
+        } else {
+          console.log("Please enter a first name");
+        }
+      }
+    },
+    {
+      name: "name_l",
+      type: "input",
+      message: "Last name?",
+      validate: (value) => {
+        if (value.length > 0) {
+          return true;
+          } else {
+            console.log("Please enter a last name");
+          }
+        }
+    },
+    {
+      name: "role",
+      type: "list",
+      choices: () => {
+        let choiceArray = [];
+        for (let i = 0; i < roles.length; i++) {
+          choiceArray.push(roles[i].name);
+        }
+      }
+    },
+
+
+
+
+
+
+  ])
+
+
 }
 
 // EMPLOYEE
