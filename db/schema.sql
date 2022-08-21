@@ -9,9 +9,23 @@ CREATE TABLE IF NOT EXISTS department (
 );
 
 
-CREATE TABLE IF NOT EXISTS employee ();
+CREATE TABLE IF NOT EXISTS employee (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    role_id INTEGER,
+    manager_id INTEGER,
+    PRIMARY Key (id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id)
+);
 
-CREATE TABLE IF NOT EXISTS role ();
+CREATE TABLE IF NOT EXISTS role (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    clout VARCHAR(30),
+    cheddar VARCHAR(30),
+    department_id INTEGER,
+    PRIMARY KEY (id)
+);
 
 SELECT name
 FROM department

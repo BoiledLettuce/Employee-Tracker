@@ -64,22 +64,34 @@ function menu() {
 // MENU FUNCTION
 
 
+// EMPLOYEE
 
 function viewEmployees() {
-
-
-
-}
-
-function viewRoles() {
-  connection.query("SELECT * FROM role", (err, data) => {
+  connection.query("SELECT * FROM employee", (err, data) => {
     if (err) throw err;
+    console.table(data);
     menu();
   });
 }
 
+function addEmployee() {
 
 
+
+}
+
+// EMPLOYEE
+
+
+// ROLES
+function viewRoles() {
+  connection.query("SELECT * FROM role", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    menu();
+  });
+}
+// ROLES 
 
 // DEPARTMENT
 function viewDepartments() {
@@ -127,11 +139,7 @@ function delDepartment() {
 
 
 
-function addEmployee() {
 
-
-
-}
 
 
 
