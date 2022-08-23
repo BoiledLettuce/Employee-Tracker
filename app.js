@@ -85,11 +85,6 @@ function addEmployee() {
   const connex = "SELECT * FROM employee, role";
   connection.query(connex, (err, roles) => {
     if (err) throw err;
-
-
-
-
-
     inquirer.prompt([
       {
         name: "name_f",
@@ -103,6 +98,9 @@ function addEmployee() {
           }
         }
       },
+
+
+
       {
         name: "name_l",
         type: "input",
@@ -115,42 +113,42 @@ function addEmployee() {
           }
         }
       },
-      {
-        name: "role",
-        type: "rawlist",
-        choices: () => {
-          let choiceArray = [];
-          for (let i = 0; i < roles.length; i++) {
-            choiceArray.push(roles[i].clout);
+
+{
+        name: "role_id",
+        type: "input",
+        message: "Role id?",
+        validate: (value) => {
+          if (value.length > 0) {
+            return true;
+          } else {
+            console.log("Please enter a role ID");
           }
-          let cleanChoiceArray = [...new Set(choiceArray)];
-          return cleanChoiceArray;
-        },
-        message: "Select a role"
-      }
-    ]).then(answer => {
-      let employeeRole;
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].role === answer.role) {
-          employeeRole = roles[i];
         }
-      }
+      },
+
+
+
+    ]).then(answer => {
+
+
 
       connection.query(
-      "INSERT INTO employee SET ?",
-      {
-        name_f: answer.name_f,
-        name_l: answer.name_l,
-        role_id: employeeRole.id,
-      },
-        (err) => {
-          if (err) throw err;
-          menu();
-        }
-      )
+        "INSERT INTO employee SET ?",
+        {
+          name_f: answer.name_f,
+          name_l: answer.name_l,
+          role_id: answer.role_id,
+        },
+          (err) => {
+            if (err) throw err;
+            menu();
+          }
+        )
     });
-  });
-}
+  }
+)};
+
 // NEEDS WORK
 
 
