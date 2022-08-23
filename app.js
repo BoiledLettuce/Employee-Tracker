@@ -86,9 +86,6 @@ function addEmployee() {
           }
         }
       },
-
-
-
       {
         name: "name_l",
         type: "input",
@@ -101,7 +98,6 @@ function addEmployee() {
           }
         }
       },
-
       {
         name: "role_id",
         type: "input",
@@ -211,13 +207,33 @@ function addDepartment() {
     );
   });
 }
-
-// delete departments test
+//DELETE FUNCTIONS
 function delDepartment() {
-  connection.query("DELETE FROM department", (err, data) => {
+  connection.query("SELECT * FROM department", (err, data) => {
     if (err) throw err;
     console.table(data);
-    menu();
+  });
+
+  inquirer.prompt([
+    {
+      name: "department",
+      type: "input",
+      message: "Choose a department to remove."
+    }
+  ]).then(answer => {
+    connection.query(
+      "DELETE from department WHERE ?",
+      {
+        name: answer.department
+      },
+      (err) => {
+        if (err) throw err;
+        menu();
+      }
+    );
   });
 }
-// DEPARTMENT
+
+function delEmployee() {
+  connection.query("SELECT * FROM employee")
+}
