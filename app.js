@@ -38,7 +38,10 @@ function menu() {
       "Delete roles",
       "Delete department",
       "Exit",
-      "Nuke"
+      "Nuke Roles",
+      "Nuke Employees",
+      "Nuke Departments",
+      "Nuke ALL"
     ]
   }).then((choose) => {
     switch (choose.action) {
@@ -48,11 +51,14 @@ function menu() {
       case "Add employee": addEmployee(); break;
       case "Add role": addRoles(); break;
       case "Add department": addDepartment(); break;
-      case "Delete employees": ; break;
-      case "Delete roles": ; break;
+      case "Delete employees": delEmployee(); break;
+      case "Delete roles": delRole(); break;
       case "Delete department": delDepartment(); break;
       case "Exit": connection.end(); break;
-      case "Nuke": connection.destroy(); break;
+      case "Nuke Roles": nukeRole(); break;
+      case "Nuke Employees": nukeEmployees(); break;
+      case "Nuke Departments": nukeDepartments(); break;
+      case "Nuke ALL": connection.destroy(); break;
     }
   });
 }
@@ -224,7 +230,7 @@ function delDepartment() {
     connection.query(
       "DELETE from department WHERE ?",
       {
-        name: answer.department
+        name: answer.department //LOOK HERE
       },
       (err) => {
         if (err) throw err;
@@ -235,5 +241,81 @@ function delDepartment() {
 }
 
 function delEmployee() {
-  connection.query("SELECT * FROM employee")
+  connection.query("SELECT * FROM employee", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+  });
+  inquirer.prompt([
+    {
+      name: "employee",
+      type: "input",
+      message: "Choose an employee to fire by FIRST NAME."
+    }
+  ]).then(answer => {
+    connection.query(
+      "DELETE from employee WHERE ?",
+      {
+        name_f: answer.employee
+      },
+      (err) => {
+        if (err) throw err;
+        menu();
+      }
+    );
+  });
 }
+
+function delRole() {
+  connection.query("SELECT * FROM role", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+  });
+  inquirer.prompt([
+    {
+      name: "role",
+      type: "input",
+      message: "Choose a role to delete by name"
+    }
+  ]).then(answer => {
+    connection.query(
+      "DELETE from role WHERE ?",
+      {
+        clout: answer.role,
+      },
+      (err) => {
+        if (err) throw err;
+        menu();
+      }
+    );
+  });
+}
+
+
+//NUKES
+function nukeRole() {
+  connection.query("DELETE FROM role", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    console.log("Roles Nuked");
+    menu();
+  });
+}
+
+function nukeEmployees() {
+  connection.query("DELETE FROM employee", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    console.log("Employees Nuked");
+    menu();
+  });
+}
+
+function nukeDepartments() {
+  connection.query("DELETE FROM department", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    console.log("Departments Nuked");
+    menu();
+  }); 
+}
+//NUKES
