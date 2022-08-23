@@ -6,9 +6,6 @@
 const mysql2 = require('mysql2');
 const inquirer = require('inquirer');
 
-
-
-
 const connection = mysql2.createConnection({  //DATABASE CONNECTION
   host: "localhost",
   user: "root",
@@ -21,9 +18,6 @@ connection.connect(err => {
   if (err) throw err;
   menu();
 });
-
-
-
 
 // FUNCTIONS
 
@@ -75,12 +69,6 @@ function viewEmployees() {
   });
 }
 
-
-
-
-
-
-// NEEDS WORK
 function addEmployee() {
   const connex = "SELECT * FROM employee, role";
   connection.query(connex, (err, roles) => {
@@ -114,7 +102,7 @@ function addEmployee() {
         }
       },
 
-{
+      {
         name: "role_id",
         type: "input",
         message: "Role id?",
@@ -126,13 +114,7 @@ function addEmployee() {
           }
         }
       },
-
-
-
     ]).then(answer => {
-
-
-
       connection.query(
         "INSERT INTO employee SET ?",
         {
@@ -140,30 +122,17 @@ function addEmployee() {
           name_l: answer.name_l,
           role_id: answer.role_id,
         },
-          (err) => {
-            if (err) throw err;
-            menu();
-          }
-        )
+        (err) => {
+          if (err) throw err;
+          menu();
+        }
+      )
     });
   }
-)};
-
-// NEEDS WORK
-
-
-
-
-
-
-
-
-
-
-
+  )
+};
 
 // EMPLOYEE
-
 
 // ROLES
 function viewRoles() {
@@ -175,22 +144,40 @@ function viewRoles() {
 }
 
 function addRoles() {
-  inquirer.prompt([
-    {
-      name: "clout",
-      type: "input",
-    }
-  ]).then(answer => {
-    connection.query(
-      "INSERT INTO role SET ?",
+  const connecks = "SELECT * FROM role";
+  connection.query(connecks, (err, data) => {
+    if (err) throw err;
+    //throw everything in here
+    inquirer.prompt([
       {
-        clout: answer.role
+        name: "clout",
+        type: "input",
+        message: "Job Position?"
       },
-      (err) => {
-        if (err) throw err;
-        menu();
+      {
+        name: "cheddar",
+        type: "input",
+        message: "Salary in Dollar?"
+      },
+      {
+        name: "department",
+        type: "input",
+        message: "Department ID?"
       }
-    );
+    ]).then(answer => {
+      connection.query(
+        "INSERT INTO role SET ?",
+        {
+          clout: answer.clout,
+          cheddar: answer.cheddar,
+          department_id: answer.department,
+        },
+        (err) => {
+          if (err) throw err;
+          menu();
+        }
+      );
+    });
   });
 }
 // ROLES 
@@ -202,8 +189,6 @@ function viewDepartments() {
     console.table(data);
     menu();
   });
-
-
 }
 
 function addDepartment() {
@@ -227,20 +212,12 @@ function addDepartment() {
   });
 }
 
-
 // delete departments test
 function delDepartment() {
-  connection.query("DELETE FROM department", (err, data) => { if (err) throw err;
+  connection.query("DELETE FROM department", (err, data) => {
+    if (err) throw err;
     console.table(data);
     menu();
   });
 }
 // DEPARTMENT
-
-
-
-
-
-
-
-
