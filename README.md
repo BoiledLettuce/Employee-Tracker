@@ -23,6 +23,7 @@ An app that allows a user to view, add, update and delete employees, roles and d
 * Make sure to `VIEW ALL` to ensure proper operation.
 
 * You should see this: 
+
     ![Example Image](./Assets/Preview.JPG)
 
    * [Video Demo](https://powerful-everglades-51474.herokuapp.com/)
