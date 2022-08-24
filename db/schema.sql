@@ -14,9 +14,7 @@ CREATE TABLE IF NOT EXISTS employee (
     name_f VARCHAR(30),
     e_role VARCHAR(30),
     role_id INTEGER,
-    manager_id INTEGER,
-    PRIMARY Key (id),
-    FOREIGN KEY (manager_id) REFERENCES employee(id)
+    PRIMARY Key (id)
 );
 
 CREATE TABLE IF NOT EXISTS role (

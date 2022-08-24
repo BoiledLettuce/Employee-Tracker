@@ -3,15 +3,16 @@ USE employee_tracker_db;
 
 INSERT INTO employee(name_f, e_role, role_id) 
 VALUES
+    ("Arthur Morgan", "Cow Boy", 4),
     ("Solid Snake", "Soldier", 2),
-    ("Liquid Snake", "Brother", 3),
+    ("Liquid Snake", "Brother", 5),
     ("Otacon", "Manager", 3),
     ("Big Boss", "Boss", 1);
    
 
 INSERT INTO role(clout, cheddar, department_id) 
 VALUES
-    ("Janitor", "$1,000,000", 5)
+    ("Janitor", "$1,000,000", 5),
     ("Manager", "$250,000", 4),
     ("Boss", "$100,000", 1),
     ("Soldier", "$25,000", 3),
