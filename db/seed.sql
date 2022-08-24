@@ -1,16 +1,19 @@
 USE employee_tracker_db;
 
 
-INSERT INTO employee(name_f, name_l, role_id) 
+INSERT INTO employee(name_f, e_role, role_id) 
 VALUES
-    ("admin", "admin", 1, 1);
+    ("Solid Snake", "Soldier", 2),
+    ("Big Boss", "Boss", 1);
 
 INSERT INTO role(clout, cheddar, department_id) 
 VALUES
-    ("Keyboard Jockey", 1, 1);
-
+    ("Boss", "$100,000", 1),
+    ("Keyboard Jockey", "$10,000", 2);
 
 
 INSERT INTO department(name)
     VALUES
-        ("Sales");
+        ("Google"),
+        ("VMWare");
+        

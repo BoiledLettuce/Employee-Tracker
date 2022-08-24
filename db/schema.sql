@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS department (
 CREATE TABLE IF NOT EXISTS employee (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name_f VARCHAR(30),
-    name_l VARCHAR(30),
+    e_role VARCHAR(30),
     role_id INTEGER,
     manager_id INTEGER,
     PRIMARY Key (id),

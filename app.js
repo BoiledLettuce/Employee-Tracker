@@ -36,6 +36,8 @@ function menu() {
       "Add role",
       "Add department",
       "Update department",
+      "Update employee",
+      "Update role",
       "Delete employees",
       "Delete roles",
       "Delete department",
@@ -55,6 +57,8 @@ function menu() {
       case "Add role": addRoles(); break;
       case "Add department": addDepartment(); break;
       case "Update department": updateDepartment(); break;
+      case "Update employee": updateEmployee(); break;
+      case "Update role": updateRole(); break;
       case "Delete employees": delEmployee(); break;
       case "Delete roles": delRole(); break;
       case "Delete department": delDepartment(); break;
@@ -87,24 +91,24 @@ function addEmployee() {
       {
         name: "name_f",
         type: "input",
-        message: "First name?",
+        message: "Full name?",
         validate: (value) => {
           if (value.length > 0) {
             return true;
           } else {
-            console.log("Please enter a first name");
+            console.log("Please enter a full name");
           }
         }
       },
       {
-        name: "name_l",
+        name: "e_role",
         type: "input",
-        message: "Last name?",
+        message: "Role?",
         validate: (value) => {
           if (value.length > 0) {
             return true;
           } else {
-            console.log("Please enter a last name");
+            console.log("Please enter a role");
           }
         }
       },
@@ -125,7 +129,7 @@ function addEmployee() {
         "INSERT INTO employee SET ?",
         {
           name_f: answer.name_f,
-          name_l: answer.name_l,
+          e_role: answer.e_role,
           role_id: answer.role_id,
         },
         (err) => {
@@ -366,7 +370,7 @@ function updateDepartment() {
         type: "input",
         message: "What is the departments new name?"
       },
-      
+
     ]).then(answer => {
       connection.query(
         "UPDATE department SET ? WHERE ?",
@@ -392,8 +396,81 @@ function updateEmployee() {
     if (err) throw err;
     console.table(data);
 
-    inquirer.prompt
+    inquirer.prompt([
+      {
+        name: "employeeFname",
+        type: "input",
+        message: "Choose employee by exact name"
+      },
+      {
+        name: "employeeId",
+        type: "input",
+        message: "What is the employees exact id?"
+      },
+      {
+        name: "newRole",
+        type: "input",
+        message: "What is their new role?"
+      }
+    ]).then(answer => {
+      connection.query(
+        "UPDATE employee SET ? WHERE ?",
+        [
+          {
+            e_role: answer.newRole,
+          },
+          {
+            id: answer.employeeId,
+          },
+        ],
+        (err) => {
+          if (err) throw err;
+          menu();
+        }
+      )
+    });
   });
 }
 
+
+function updateRole() {
+  connection.query("SELECT * FROM role", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+
+    inquirer.prompt([
+      {
+        name: "rolename",
+        type: "input",
+        message: "What is the roles name?"
+      },
+      {
+        name: "roleId",
+        type: "input",
+        message: "What is the roles exact Id?"
+      },
+      {
+        name: "newRole",
+        type: "input",
+        message: "What is the new role name?"
+      }
+    ]).then(answer => {
+      connection.query(
+        "UPDATE role SET ? WHERE ?",
+        [
+          {
+            clout: answer.newRole,
+          },
+          {
+            id: answer.roleId,
+          },
+        ],
+        (err) => {
+          if (err) throw err;
+          menu();
+        }
+      )
+    });
+  });
+}
 //UPDATE FUNCTIONS
