@@ -1,4 +1,4 @@
-# Employee Tracking with MYSQL
+# Employee Tracking with mySQL
 ![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)
 ![Top Language](https://img.shields.io/github/languages/top/boiledlettuce/employee-tracker)
 
@@ -12,6 +12,8 @@ An app that allows a user to view, add, update and delete employees, roles and d
 4. `npm install` in terminal to install all required dependencies.
 
 ## Usage
+
+* Use mySQL Workbench using the provided schema.sql and seed.sql to start a local database.
 
 * To invoke this application use this command:
 
