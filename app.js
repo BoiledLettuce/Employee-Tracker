@@ -1,4 +1,3 @@
-
 // const cTable = require('console.table');
 // const path = require('path');
 // const express = require('express');
@@ -66,7 +65,7 @@ function menu() {
       case "Nuke Roles": nukeRole(); break;
       case "Nuke Employees": nukeEmployees(); break;
       case "Nuke Departments": nukeDepartments(); break;
-      case "Nuke ALL": connection.destroy(); break;
+      case "Nuke ALL": nukeEmployees(), nukeDepartments(), nukeRole(); break;
     }
   });
 }
@@ -257,7 +256,7 @@ function delEmployee() {
     {
       name: "employee",
       type: "input",
-      message: "Choose an employee to fire by FIRST NAME."
+      message: "Choose an employee to fire by FULL NAME."
     }
   ]).then(answer => {
     connection.query(
