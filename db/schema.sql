@@ -31,3 +31,13 @@ SELECT name
 FROM department
 LEFT JOIN role
 ON department.id = role.department_id;
+
+SELECT name_f, name_l, role_id, manager_id
+FROM employee
+JOIN role
+ON employee.role_id = role.department_id;
+
+SELECT clout, cheddar, department_id
+FROM role
+LEFT JOIN department
+ON role.department_id = department.id;

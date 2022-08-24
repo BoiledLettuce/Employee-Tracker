@@ -31,9 +31,11 @@ function menu() {
       "View employees",
       "View roles",
       "View departments",
+      "View ALL",
       "Add employee",
       "Add role",
       "Add department",
+      "Update department",
       "Delete employees",
       "Delete roles",
       "Delete department",
@@ -48,9 +50,11 @@ function menu() {
       case "View employees": viewEmployees(); break;
       case "View roles": viewRoles(); break;
       case "View departments": viewDepartments(); break;
+      case "View ALL": viewAll(); break;
       case "Add employee": addEmployee(); break;
       case "Add role": addRoles(); break;
       case "Add department": addDepartment(); break;
+      case "Update department": updateDepartment(); break;
       case "Delete employees": delEmployee(); break;
       case "Delete roles": delRole(); break;
       case "Delete department": delDepartment(); break;
@@ -316,6 +320,80 @@ function nukeDepartments() {
     console.table(data);
     console.log("Departments Nuked");
     menu();
-  }); 
+  });
 }
 //NUKES
+
+
+function viewAll() {
+  connection.query("SELECT * FROM employee", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+  });
+  connection.query("SELECT * FROM department", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+  });
+  connection.query("SELECT * FROM role", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    menu();
+  });
+}
+
+
+//UPDATE FUNCTIONS
+
+
+function updateDepartment() {
+  connection.query("SELECT * FROM department", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+
+    inquirer.prompt([
+      {
+        name: "department",
+        type: "input",
+        message: "Choose a department by name"
+      },
+      {
+        name: "newID",
+        type: "input",
+        message: "What is the departments exact ID?"
+      },
+      {
+        name: "newDepartment",
+        type: "input",
+        message: "What is the departments new name?"
+      },
+      
+    ]).then(answer => {
+      connection.query(
+        "UPDATE department SET ? WHERE ?",
+        [
+          {
+            name: answer.newDepartment,
+          },
+          {
+            id: answer.newID,
+          },
+        ],
+        (err) => {
+          if (err) throw err;
+          menu();
+        }
+      )
+    });
+  });
+}
+
+function updateEmployee() {
+  connection.query("SELECT * FROM employee", (err, data) => {
+    if (err) throw err;
+    console.table(data);
+
+    inquirer.prompt
+  });
+}
+
+//UPDATE FUNCTIONS
