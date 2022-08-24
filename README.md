@@ -1,5 +1,6 @@
 # Employee Tracking with MYSQL
 ![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)
+![Top Language](https://img.shields.io/github/languages/top/boiledlettuce/employee-tracker)
 
 An app that allows a user to view, add, update and delete employees, roles and departments.
 
